@@ -1,0 +1,24 @@
+- name: install nginx
+  yum: name=nginx state=latest
+
+- name: copy nginx config
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+
+- name: copy default vhost
+  copy:
+    src: dork.conf
+    dest: /etc/nginx/conf.d/dork.conf
+
+- name: get stat of /var/web
+  stat:
+    path: /var/web
+  register: dir
+
+- name: link /var/source directly to /var/web
+  file:
+    src: /var/source
+    dest: /var/web
+    state: link
+  when: not dir.stat.exists

@@ -1,0 +1,8 @@
+---
+dependencies:
+- dork.shell
+- { role: dork.supervisord, service_name: nginx, service_command: /usr/sbin/nginx }
+
+dork:
+  matches:
+  - '**.html'
