@@ -1,13 +1,7 @@
 ---
 dependencies:
 - geerlingguy.repo-epel
-- dork.shell
-- {
-    role: dork.supervisord,
-    service_name: nginx,
-    service_pid: /var/run/nginx.pid,
-    service_command: /usr/sbin/nginx
-  }
+- dork.ssh
 
 dork:
   matches:
