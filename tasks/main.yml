@@ -1,5 +1,7 @@
 - name: install nginx
-  yum: name=nginx state=latest
+  yum:
+    name: nginx
+    state: latest
 
 - name: copy nginx config
   copy:

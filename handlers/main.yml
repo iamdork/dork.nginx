@@ -1,2 +1,4 @@
 - name: reload supervisor
-  shell: supervisorctl reload
+  supervisorctl:
+    name: nginx
+    state: restarted

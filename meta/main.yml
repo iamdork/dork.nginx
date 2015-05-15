@@ -1,7 +1,5 @@
----
 dependencies:
-- geerlingguy.repo-epel
-- dork.ssh
+-  { role: geerlingguy.repo-epel }
 
 dork:
   matches:
