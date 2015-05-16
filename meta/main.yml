@@ -2,5 +2,5 @@ dependencies:
 -  { role: geerlingguy.repo-epel }
 
 dork:
-  matches:
+  build_triggers:
   - '**.html'
