@@ -30,3 +30,8 @@
     src: nginx.ini
     dest: /etc/supervisord.d/nginx.ini
   notify: reload supervisor
+
+- name: start nginx
+  supervisorctl:
+    name: nginx
+    state: started
