@@ -1,3 +1,11 @@
+- name: install self-access dotfiles
+  copy:
+    src: "{{ item }}"
+    dest: /root/.{{ item }}
+  with_items:
+  - wgetrc
+  - curlrc
+
 - name: install nginx
   yum:
     name: nginx
