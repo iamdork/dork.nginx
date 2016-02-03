@@ -1,4 +1,4 @@
-- name: reload supervisor
+- name: dork.nginx reload
   supervisorctl:
     name: nginx
     state: restarted

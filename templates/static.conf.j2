@@ -1,0 +1,8 @@
+server {
+  listen {{ nginx_http_port }} default_server;
+  server_name  _;
+  location / {
+    root   /var/source;
+    index  index.html;
+  }
+}

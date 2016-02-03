@@ -15,11 +15,27 @@
   copy:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
+  notify: dork.nginx reload
 
-- name: generate default vhost
+- name: copy proxy config
   template:
-    src: dork.conf.j2
-    dest: /etc/nginx/conf.d/dork.conf
+    src: proxy.conf.j2
+    dest: /etc/nginx/conf.d/proxy.conf
+  notify: dork.nginx reload
+
+- name: generate static asset host
+  template:
+    src: static.conf.j2
+    dest: /etc/nginx/conf.d/static.conf
+  when: nginx_http_port
+  notify: dork.nginx reload
+
+- name: remove static asset host
+  file:
+    path: /etc/nginx/conf.d/static.conf
+    state: absent
+  when: not nginx_http_port
+  notify: dork.nginx reload
 
 - name: get stat of /var/web
   stat:
@@ -37,7 +53,6 @@
   copy:
     src: nginx.ini
     dest: /etc/supervisord.d/nginx.ini
-  notify: reload supervisor
 
 - name: start nginx
   supervisorctl:
