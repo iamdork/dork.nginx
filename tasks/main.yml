@@ -53,8 +53,8 @@
   copy:
     src: nginx.ini
     dest: /etc/supervisord.d/nginx.ini
+  register: nginx_ini
 
-- name: start nginx
-  supervisorctl:
-    name: nginx
-    state: started
+- name: reload supervisor
+  shell: supervisorctl reload
+  when: nginx_ini.changed

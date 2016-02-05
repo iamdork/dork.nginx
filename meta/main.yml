@@ -1,6 +1,2 @@
 dependencies:
 -  { role: geerlingguy.repo-epel }
-
-dork:
-  build_triggers:
-  - '**.html'
