@@ -1,5 +1,5 @@
 server {
-  listen {{ nginx_http_port }} default_server;
+  listen {{ dork_ports['default'] }};
   server_name  _;
   location / {
     root   /var/source;

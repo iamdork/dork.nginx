@@ -1,2 +1,5 @@
 build_triggers:
 - '**.html'
+
+services:
+  default: 80

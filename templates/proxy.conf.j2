@@ -2,20 +2,13 @@ server {
   listen 80 default;
   root /var/web;
   error_log /var/log/nginx/error.log;
-  {% for path, port in nginx_proxy_map.iteritems() if path != '' %}
-    location ~ /{{ path }}/(.*) {
-      proxy_pass http://127.0.0.1:{{ port }}/$1?$args;
-      {% if path %}
-      proxy_set_header X-DORK-PATH {{ path }};
-      {% endif %}
+  {% for id in dork_services["80"] if id != 'default'%}
+    location ~ /{{ id }}/(.*) {
+      proxy_pass http://127.0.0.1:{{ dork_ports[id] }}/$1?$args;
+      proxy_set_header X-DORK-PATH {{ id }};
     }
   {% endfor %}
-  {% for path, port in nginx_proxy_map.iteritems() if path == '' %}
-    location ~ /{{ path }}/(.*) {
-    proxy_pass http://127.0.0.1:{{ port }}/$1?$args;
-    {% if path %}
-      proxy_set_header X-DORK-PATH {{ path }};
-    {% endif %}
-    }
-  {% endfor %}
+  location ~ /(.*) {
+    proxy_pass http://127.0.0.1:{{ dork_ports['default'] }}/$1?$args;
+  }
 }

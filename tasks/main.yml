@@ -1,3 +1,8 @@
+- name: enable epel repository
+  yum:
+    name: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+    state: present
+
 - name: install self-access dotfiles
   copy:
     src: "{{ item }}"
@@ -23,18 +28,10 @@
     dest: /etc/nginx/conf.d/proxy.conf
   notify: dork.nginx reload
 
-- name: generate static asset host
+- name: generate default vhost
   template:
-    src: static.conf.j2
-    dest: /etc/nginx/conf.d/static.conf
-  when: nginx_http_port
-  notify: dork.nginx reload
-
-- name: remove static asset host
-  file:
-    path: /etc/nginx/conf.d/static.conf
-    state: absent
-  when: not nginx_http_port
+    src: default.conf.j2
+    dest: /etc/nginx/conf.d/default.conf
   notify: dork.nginx reload
 
 - name: get stat of /var/web
