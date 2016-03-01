@@ -2,7 +2,7 @@ server {
   listen {{ dork_ports['default'] }};
   server_name  _;
   location / {
-    root   /var/source;
+    root   {{ nginx_webroot }};
     index  index.html;
   }
 }
